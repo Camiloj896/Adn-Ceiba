@@ -4,6 +4,7 @@ import { DomainModule } from 'src/domain/domain.module';
 import CostSchema from 'src/infrastructure/adapters/repository/schema/cost.schema';
 import CostRepositoryMongo from 'src/infrastructure/adapters/repository/cost.repository.mongo';
 import GetAllCostsUseCase from './cost/getAllCost.usecase';
+import CreateCostUseCase from './cost/createCost.use.case'
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import GetAllCostsUseCase from './cost/getAllCost.usecase';
     ],
     providers: [
       GetAllCostsUseCase,
+      CreateCostUseCase,
       {
         provide: 'CostRepository',
         useClass: CostRepositoryMongo,
@@ -24,6 +26,7 @@ import GetAllCostsUseCase from './cost/getAllCost.usecase';
     ],
     exports: [
       GetAllCostsUseCase,
+      CreateCostUseCase,
     ],
   })
 

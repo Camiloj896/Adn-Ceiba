@@ -15,4 +15,10 @@ export default class ServiceRepositoryMongo implements CostRepository{
         const costs = await this.costModel.find();
         return CostMapper.toDomains(costs);
     }
+
+    public async createCost(cost: Cost): Promise<Cost>{
+        let costCreated = new this.costModel(cost);
+        costCreated = await costCreated.save();
+        return CostMapper.toDomain(costCreated);
+    }
 }

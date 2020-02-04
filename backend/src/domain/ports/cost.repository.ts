@@ -4,4 +4,6 @@ export interface CostRepository {
 
     getAll(): Promise<Cost[]>;
 
+    createCost(cost: Cost): Promise<Cost>;
+
 }
