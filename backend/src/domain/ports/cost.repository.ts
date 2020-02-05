@@ -1,20 +1,20 @@
-import Cost from 'src/domain/dto/cost.dto';
+import CostDto from 'src/domain/dto/cost.dto';
 
 export interface CostRepository {
 
-    getAll(): Promise<Cost[]>;
+    getAll(): Promise<CostDto[]>;
 
     /**
    * Returns cost filtered by id
    * @param {string} productId
    * @returns a `cost` object containing the data.
    */
-    getCost(id: string): Promise<Cost>;
+    getCost(id: string): Promise<CostDto>;
 
-    createCost(cost: Cost): Promise<Cost>;
+    createCost(cost: CostDto): Promise<CostDto>;
 
-    updateCost(id: string, cost: Cost): Promise<Cost>;
+    updateCost(id: string, cost: CostDto): Promise<CostDto>;
 
-    deleteCost(id: string): Promise<Cost>;
+    deleteCost(id: string): Promise<CostDto>;
 
 }

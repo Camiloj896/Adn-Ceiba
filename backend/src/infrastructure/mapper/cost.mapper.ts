@@ -1,10 +1,10 @@
-import Cost from 'src/domain/dto/cost.dto';
+import CostDto from 'src/domain/dto/cost.dto';
 import { CostEntity } from './../adapters/repository/entity/cost.entity';
 
 export default class CostMapper {
 
-    public static toDomain(costEntity: CostEntity): Cost {
-        return new Cost(
+    public static toDomain(costEntity: CostEntity): CostDto {
+        return new CostDto(
             costEntity.id,
             costEntity.type,
             costEntity.amount,
@@ -14,8 +14,8 @@ export default class CostMapper {
         );
     }
    
-    public static toDomains(costEntity: CostEntity[]): Cost[] {
-        const costs = new Array<Cost>();
+    public static toDomains(costEntity: CostEntity[]): CostDto[] {
+        const costs = new Array<CostDto>();
         costEntity.forEach( costEntity => {
             const cost = this.toDomain(costEntity);
             costs.push(cost)

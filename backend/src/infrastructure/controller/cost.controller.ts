@@ -1,11 +1,10 @@
-import { Controller, Get, Post, Res, Body, Param, HttpStatus, Put, Delete, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Res, Body, Param, HttpStatus, Put, Delete } from '@nestjs/common';
 import GetAllCostsUseCase from 'src/application/cost/getAllCost.usecase';
 import CreateCostUseCase from 'src/application/cost/createCost.usecase';
 import GetCostUseCase from 'src/application/cost/getCost.usecase';
 import UpdateCostUseCase from 'src/application/cost/updatedCost.usecase';
 import DeleteCostUseCase from 'src/application/cost/deleteCost.usecase';
-import GetTotalCost from 'src/application/application.module';
-import Cost from 'src/domain/dto/cost.dto';
+import CostDto from 'src/domain/dto/cost.dto';
 
 @Controller('cost/')
 export class CostController {
@@ -32,13 +31,13 @@ export class CostController {
     }
 
     @Post()
-    public async createCost(@Res() request, @Body() cost: Cost): Promise<any> {
+    public async createCost(@Res() request, @Body() cost: CostDto): Promise<any> {
         const costCreated = await this.createCostUseCase.handler(cost);
         return request.status(HttpStatus.CREATED).json(costCreated);
     }
 
     @Put(':id')
-    public async updateCost(@Res() request, @Body() cost: Cost, @Param('id') id: string): Promise<any> {
+    public async updateCost(@Res() request, @Body() cost: CostDto, @Param('id') id: string): Promise<any> {
         const costUpdated = await this.updateCostUseCase.handler(id, cost);
         return request.status(HttpStatus.OK).json(costUpdated);
     }

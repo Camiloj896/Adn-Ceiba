@@ -8,7 +8,8 @@ import CreateCostUseCase from './cost/createCost.usecase';
 import GetCostUseCase from './cost/getCost.usecase';
 import UpdatedCostUseCase from './cost/updatedCost.usecase';
 import DeleteCostUseCase from './cost/deleteCost.usecase';
-// import GetTotalCostUseCase from './cost/getTotalCost.usecase';
+import CostService from 'src/domain/services/cost.service';
+import CostDto from 'src/domain/dto/cost.dto';
 
 @Module({
     imports: [
@@ -28,8 +29,12 @@ import DeleteCostUseCase from './cost/deleteCost.usecase';
       DeleteCostUseCase,
       {
         provide: 'CostService',
-        useClass: CostRepositoryMongo,
+        useClass: CostService,
       },
+      {
+        provide: 'CostRepositoryMongo',
+        useClass: CostRepositoryMongo,
+      }
     ],
     exports: [
       GetAllCostsUseCase,

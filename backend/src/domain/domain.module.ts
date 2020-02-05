@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CostService } from './services/cost.service';
 
-@Module({})
+@Module({ })
 export class DomainModule {}

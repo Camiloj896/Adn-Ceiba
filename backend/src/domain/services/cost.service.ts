@@ -1,31 +1,31 @@
 import { Injectable, Inject } from '@nestjs/common';
-import Cost from '../dto/cost.dto';
+import CostDto from '../dto/cost.dto';
 import { CostRepository } from 'src/domain/ports/cost.repository';
 
 @Injectable()
-export class CostService {
+export default class CostService { 
 
-    constructor(@Inject('CostRepository') private costRepository: CostRepository) {}
+    constructor(@Inject('CostRepositoryMongo') private costRepository: CostRepository) { }
 
-    createCost(cost: Cost): Promise<Cost> {
-        //LOGICA DE NEGOCIO
-        cost.setTotalCost(5);
-        return this.costRepository.createCost(cost);  
+    async createCost(cost: CostDto): Promise<CostDto> {
+        cost.totalCost = 25;
+        const createService = await this.costRepository.createCost(cost);
+        return createService;
     }
 
-    getAll(): Promise<Cost[]> {
+    getAll(): Promise<CostDto[]> {        
         return this.costRepository.getAll();  
     }
 
-    getCost(costId: string): Promise<Cost> {
+    getCost(costId: string): Promise<CostDto> {
       return this.costRepository.getCost(costId);
     }
 
-    deleteCost(id: string): Promise<Cost> {
+    deleteCost(id: string): Promise<CostDto> {
         return this.costRepository.deleteCost(id);
     }
 
-    updateCost(costId: string, cost: Cost): Promise<Cost>{
+    updateCost(costId: string, cost: CostDto): Promise<CostDto>{
         return this.costRepository.updateCost(costId, cost);
     }
 

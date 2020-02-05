@@ -1,14 +1,13 @@
 import { Injectable, Inject } from '@nestjs/common';
-import Cost from 'src/domain/dto/cost.dto';
-// import { CostRepository } from 'src/domain/ports/cost.repository';
-import { CostService } from 'src/domain/services/cost.service';
+import CostDto from 'src/domain/dto/cost.dto';
+import CostService  from 'src/domain/services/cost.service';
 
 @Injectable()
 export default class GetCostUseCase {
 
   constructor(@Inject('CostService') private costService: CostService) {}
 
-    public handler(costId: string): Promise<Cost>{
+    public handler(costId: string): Promise<CostDto>{
         return this.costService.getCost(costId);        
     }
 

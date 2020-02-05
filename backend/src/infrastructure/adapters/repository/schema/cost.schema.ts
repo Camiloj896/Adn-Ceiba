@@ -14,8 +14,7 @@ const CostSchema = new Schema({
         required: true
     },
     totalCost: {
-        type: Number,
-        default: 0
+        type: Number
     },
     createAt: {
         type: Date,
