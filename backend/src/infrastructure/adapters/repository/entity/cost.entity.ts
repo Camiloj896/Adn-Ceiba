@@ -4,5 +4,6 @@ export interface CostEntity extends Document {
     type: string;
     amount: number;
     value: number;
-    createAt: string;
+    totalCost: number;
+    createAt: Date;    
 }

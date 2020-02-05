@@ -4,7 +4,11 @@ import { DomainModule } from 'src/domain/domain.module';
 import CostSchema from 'src/infrastructure/adapters/repository/schema/cost.schema';
 import CostRepositoryMongo from 'src/infrastructure/adapters/repository/cost.repository.mongo';
 import GetAllCostsUseCase from './cost/getAllCost.usecase';
-import CreateCostUseCase from './cost/createCost.use.case'
+import CreateCostUseCase from './cost/createCost.usecase';
+import GetCostUseCase from './cost/getCost.usecase';
+import UpdatedCostUseCase from './cost/updatedCost.usecase';
+import DeleteCostUseCase from './cost/deleteCost.usecase';
+// import GetTotalCostUseCase from './cost/getTotalCost.usecase';
 
 @Module({
     imports: [
@@ -18,15 +22,21 @@ import CreateCostUseCase from './cost/createCost.use.case'
     ],
     providers: [
       GetAllCostsUseCase,
+      GetCostUseCase,
       CreateCostUseCase,
+      UpdatedCostUseCase,
+      DeleteCostUseCase,
       {
-        provide: 'CostRepository',
+        provide: 'CostService',
         useClass: CostRepositoryMongo,
       },
     ],
     exports: [
       GetAllCostsUseCase,
+      GetCostUseCase,
       CreateCostUseCase,
+      UpdatedCostUseCase,
+      DeleteCostUseCase,
     ],
   })
 

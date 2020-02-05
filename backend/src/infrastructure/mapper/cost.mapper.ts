@@ -1,4 +1,4 @@
-import Cost from 'src/domain/services/cost';
+import Cost from 'src/domain/dto/cost.dto';
 import { CostEntity } from './../adapters/repository/entity/cost.entity';
 
 export default class CostMapper {
@@ -9,7 +9,8 @@ export default class CostMapper {
             costEntity.type,
             costEntity.amount,
             costEntity.value,
-            new Date(costEntity.createAt),
+            costEntity.totalCost,
+            new Date(costEntity.createAt),            
         );
     }
    
