@@ -6,8 +6,7 @@ const CostSchema = new Schema({
         required: true
     },
     amount: {
-        type: Number,
-        default: 1
+        type: Number
     },
     value: {
         type: Number,

@@ -1,4 +1,4 @@
-import CostDto from 'src/domain/dto/cost.dto';
+import CostDto from './../../domain/dto/cost.dto';
 import { CostEntity } from './../adapters/repository/entity/cost.entity';
 
 export default class CostMapper {

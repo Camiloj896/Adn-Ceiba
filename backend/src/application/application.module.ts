@@ -9,7 +9,6 @@ import GetCostUseCase from './cost/getCost.usecase';
 import UpdatedCostUseCase from './cost/updatedCost.usecase';
 import DeleteCostUseCase from './cost/deleteCost.usecase';
 import CostService from 'src/domain/services/cost.service';
-import CostDto from 'src/domain/dto/cost.dto';
 
 @Module({
     imports: [
