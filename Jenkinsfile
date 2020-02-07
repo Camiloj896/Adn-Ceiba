@@ -48,7 +48,7 @@ pipeline {
       steps{
         echo "------------>Unit Tests<------------"
         dir("backend"){
-          sh 'npm test:cov' 
+          sh 'npm run test:cov' 
         }
       }
     }
