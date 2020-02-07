@@ -9,7 +9,6 @@ import CostDto from 'src/domain/dto/cost.dto';
 @Injectable()
 export default class ServiceRepositoryMongo implements CostRepository{
     
-    public prueba = 24444;
     constructor(@InjectModel('Cost') private costModel: Model<CostEntity>){}
 
     public async getAll(): Promise<CostDto[]> {

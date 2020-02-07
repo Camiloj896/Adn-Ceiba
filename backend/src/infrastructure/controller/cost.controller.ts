@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Res, Body, Param, HttpStatus, Put, Delete } from '@nestjs/common';
-import GetAllCostsUseCase from 'src/application/cost/getAllCost.usecase';
-import CreateCostUseCase from 'src/application/cost/createCost.usecase';
-import GetCostUseCase from 'src/application/cost/getCost.usecase';
-import UpdateCostUseCase from 'src/application/cost/updatedCost.usecase';
-import DeleteCostUseCase from 'src/application/cost/deleteCost.usecase';
-import CostDto from 'src/domain/dto/cost.dto';
+import GetAllCostsUseCase from './../../application/cost/getAllCost.usecase';
+import CreateCostUseCase from './../../application/cost/createCost.usecase';
+import GetCostUseCase from './../../application/cost/getCost.usecase';
+import UpdateCostUseCase from './../../application/cost/updatedCost.usecase';
+import DeleteCostUseCase from './../../application/cost/deleteCost.usecase';
+import CostDto from './../../domain/dto/cost.dto';
 
 @Controller('cost/')
 export class CostController {

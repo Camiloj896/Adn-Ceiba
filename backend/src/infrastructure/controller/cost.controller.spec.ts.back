@@ -1,0 +1,59 @@
+
+import { CostController } from "./cost.controller"
+import { TestingModule, Test } from "@nestjs/testing";
+import InfrastructureModule from "./../infrastructure.module";
+import { getModelToken } from '@nestjs/mongoose';
+
+describe('auth', () => {
+  let costController: CostController;
+
+  const mockRepository = {
+    find() {
+      return {};
+    }
+  };
+
+  beforeAll(async () => {
+    const module = await Test.createTestingModule({
+      imports: [InfrastructureModule]
+    })
+      .overrideProvider(getModelToken('Cost'))
+      .useValue(mockRepository)
+      .compile();
+
+      costController = module.get<CostController>(CostController);
+  });
+
+  it('should be defined', () => {
+        expect(1 * 1).toBe(1);
+      })
+    
+});
+
+// describe('Task Controller', () => {
+//   let controller: CostController;
+
+//   const eventModel = {
+//   }
+
+
+//   beforeEach(async () => {
+//     const module: TestingModule = await Test.createTestingModule({
+//       imports: [
+//         InfrastructureModule
+//       ],
+//       providers: [
+//         {
+//           provide: getModelToken('Cost'),
+//           useValue: [],
+//         },
+//       ],
+//     }).compile();
+
+//     controller = module.get<CostController>(CostController);
+//   })
+
+//   it('should be defined', () => {
+//     expect(controller).toBeDefined();
+//   })
+// })

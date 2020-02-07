@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DomainModule } from 'src/domain/domain.module';
-import CostSchema from 'src/infrastructure/adapters/repository/schema/cost.schema';
-import CostRepositoryMongo from 'src/infrastructure/adapters/repository/cost.repository.mongo';
+import { DomainModule } from './../domain/domain.module';
+import CostSchema from './../infrastructure/adapters/repository/schema/cost.schema';
+import CostRepositoryMongo from './../infrastructure/adapters/repository/cost.repository.mongo';
 import GetAllCostsUseCase from './cost/getAllCost.usecase';
 import CreateCostUseCase from './cost/createCost.usecase';
 import GetCostUseCase from './cost/getCost.usecase';
 import UpdatedCostUseCase from './cost/updatedCost.usecase';
 import DeleteCostUseCase from './cost/deleteCost.usecase';
-import CostService from 'src/domain/services/cost.service';
+import CostService from './../domain/services/cost.service';
 
 @Module({
     imports: [
