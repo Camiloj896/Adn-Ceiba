@@ -45,6 +45,7 @@ pipeline {
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
+        sh 'cd backend'
         sh 'npm test' 
       }
     }
