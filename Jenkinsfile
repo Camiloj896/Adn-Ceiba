@@ -38,15 +38,18 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh 'npm install' 
+        dir("backend"){
+          sh 'npm install' 
+        }
       }
     }  
     
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        sh 'cd backend'
-        sh 'npm test' 
+        dir("backend"){
+          sh 'npm test' 
+        }
       }
     }
 
