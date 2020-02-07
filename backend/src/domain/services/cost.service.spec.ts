@@ -38,23 +38,23 @@ describe('--- Cost Service ---', () => {
     })
 
     it('GetAll Cost', () => {
-        expect(service.getAll()).resolves.toBe([cost]);
+        expect(service.getAll()).resolves.toStrictEqual([cost]);
     });
 
     it('Get Cost', () => {
-        expect(service.getCost(cost.id)).resolves.toBe(cost);
+        expect(service.getCost(cost.id)).resolves.toStrictEqual(cost);
     });
 
     it('Create Cost', () => {
-        expect(service.createCost(cost)).resolves.toBe(cost);
+        expect(service.createCost(cost)).resolves.toStrictEqual(cost);
     });
 
     it('Update Cost', () => {
-        expect(service.updateCost(cost.id, cost)).resolves.toBe(cost);
+        expect(service.updateCost(cost.id, cost)).resolves.toStrictEqual(cost);
     });
 
     it('Delete Cost', () => {
-        expect(service.deleteCost(cost.id)).resolves.toBe(cost);
+        expect(service.deleteCost(cost.id)).resolves.toStrictEqual(cost);
     });
     
 });
