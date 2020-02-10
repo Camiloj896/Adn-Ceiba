@@ -59,6 +59,4 @@ describe('--- ServiceRepositoryMongo ---', () => {
     expect(service.deleteCost(cost.id)).resolves.toEqual(cost);
   });
 
-
-
 });
