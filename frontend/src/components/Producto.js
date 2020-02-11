@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
-import { createProduct } from './../api/Producto';
+import { createProduct } from './../api/Product';
 
 const style = {
     container: { display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 0, width: '30%', height: '100%'}    
@@ -42,9 +42,14 @@ const Producto = () => {
                 value: value
             }
 
-            const Product = createProduct(data);
-            console.log(Product)
-            if(typeof(Product) === 'object'){
+            const ProductCreate = [];
+
+            createProduct(data).then(res => {
+                ProductCreate.push(res.data)
+            });
+
+            console.log(ProductCreate)
+            if(ProductCreate.id){
                 setShow(true)
                 return true;                
             }else{
