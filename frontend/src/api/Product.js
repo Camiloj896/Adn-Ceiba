@@ -14,35 +14,12 @@ export function setProducts() {
 //CREATE PRODUCT
 export const createProduct = (data) => {
 
-    // return fetch(Config.url+'cost/', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     return data;
-    // }).catch((error) => {
-    //     console.log(error)
-    // })
-    return axios.post(Config.url+'cost/', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: data
-    });
+    return axios.post(Config.url+'cost/', data);
 
 }
 
 export const updatedProduct = (id, data) => {
-  return axios.put(Config.url+`cost/${id}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: data
-  });
+  return axios.put(Config.url+`cost/${id}`, data);
 }
 
 export const deleteProduct = (id) => {

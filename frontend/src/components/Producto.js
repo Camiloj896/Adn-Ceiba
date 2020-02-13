@@ -5,6 +5,7 @@ import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { createProduct } from './../api/Product';
+import { MdLocalHospital } from 'react-icons/md';
 
 const style = {
     container: { display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 0, width: '30%', height: '100%'}    
@@ -13,6 +14,7 @@ const style = {
 const Producto = () => {
 
     const [error , setError] = useState(false);
+    const [success , setSuccess] = useState(false);
     const [errorProducto , setErrorProducto] = useState(false);
     const [errorValor , setErrorValor] = useState(false);
     const [show, setShow] = useState(false);
@@ -28,13 +30,23 @@ const Producto = () => {
         let amount = e.target.cantidad.value;
         
         //VALIDACIONES Y MSJ DE ERROR
-        if(type === null || type === ''){ setErrorProducto(true) } else { setErrorProducto(false) }
-        if(value === null || value === '' || value < 1){ setErrorValor(true) } else { setErrorValor(false) }
-        if(!errorProducto && !errorValor){ setError(true) } else { setError(false) }
+        if(type === null || type === '') { 
+            setErrorProducto(true)             
+        } else { 
+            setErrorProducto(false)                     
+        }
 
-        if(error){
-            return false;
+        if(value === null || value === '' || value < 1) { 
+            setErrorValor(true) 
+        } else { 
+            setErrorValor(false)
+        }
+
+        if(value === null || value === '' || value < 1 || type === null || type === '') { 
+            setError(true)            
         }else{
+            
+            setError(false) 
 
             let data = {
                 type: type,
@@ -48,14 +60,9 @@ const Producto = () => {
                 ProductCreate.push(res.data)
             });
 
-            console.log(ProductCreate)
-            if(ProductCreate.id){
-                setShow(true)
-                return true;                
-            }else{
-                return false;
-            }
-            
+            setSuccess(true)            
+
+            // window.location.reload()
         }
         
     }
@@ -67,12 +74,14 @@ const Producto = () => {
                     <h2 className="text-light">......</h2>
                 </Card.Header>
                 <Card.Body>
-                    { error ? <Alert variant="danger"><Error msj="Por favor, complete la información" /></Alert> : null}        
+                    { error ? <Alert id="alert-error" variant="danger"><Error msj="Por favor, complete la información" /></Alert> : null}        
+                    { success ? <Alert id="alert-success" variant="success"><Error msj="Product Created" /></Alert> : null}        
                     <form onSubmit={definirProducto}>
                         <div className="form-group">
                             <label className="float-left">Producto { errorProducto ? <span className="text-danger">*</span> : null} </label>
                             <input 
                                 type="text"
+                                id="Product_C"
                                 placeholder="Producto" 
                                 name="producto"
                                 className="form-control"
@@ -83,15 +92,16 @@ const Producto = () => {
                             <label className="float-left">Valor { errorValor ? <span className="text-danger">*</span> : null}</label>
                             <input 
                                 type="number"
+                                id="Value_C"
                                 placeholder="Valor" 
                                 name="valor"
                                 className="form-control"
                             />
-                            <small className="form-text text-muted">{ errorValor ? 'La cantidad ingresada debe ser mayor a 1' : null}</small>
+                            <small className="form-text text-muted" id="error-value-create">{ errorValor ? 'La cantidad ingresada debe ser mayor a 1' : null}</small>
                         </div>
                         <div className="form-group">
                             <label className="float-left">Cantidad</label>
-                            <select className="form-control" name="cantidad" defaultValue="1">
+                            <select className="form-control" name="cantidad" defaultValue="1" id="Amount_c">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -105,7 +115,7 @@ const Producto = () => {
                             </select>
                             <small className="form-text text-muted float-left"></small>
                         </div>                        
-                        <Button type="submit" variant="outline-dark" style={{marginTop:'10px', width: '50%'}}>Enviar</Button>
+                        <Button type="submit" id="btn-create" variant="outline-dark" style={{marginTop:'10px', width: '50%'}}>Enviar</Button>
                     </form>
                 </Card.Body>
             </Card>

@@ -1,62 +1,73 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { getModelToken } from '@nestjs/mongoose';
-import ServiceRepositoryMongo  from './cost.repository.mongo';
+import { GenericContainer, Wait } from 'testcontainers';
+import { TestingModule, Test } from '@nestjs/testing';
+import { MongooseModule } from '@nestjs/mongoose';
+import InfrastructureModule from '../../infrastructure.module';
 
-import CostDto from './../../../domain/dto/cost.dto';
+import ServiceRepositoryMongo from './cost.repository.mongo';
+import CostSchema from './schema/cost.schema';
+import CostDto from '../../../domain/dto/cost.dto';
 
-const cost: CostDto = {
-    id: 'asd12345678',
-    type: 'cost type',
-    amount: 5,
-    value: 20000,
-    totalCost: 0,
-    createAt: new Date()
-}
+describe('-- CostRepositoryMongo --', () => {
+  
+  let serviceRepositoryMongo: ServiceRepositoryMongo;
+  let container;
+  const mongoPort = 27017;
+  jest.setTimeout(100000);
+  beforeAll(async done => {
+    container = await new GenericContainer('mongo')
+      .withExposedPorts(mongoPort)
+      .withWaitStrategy(Wait.forLogMessage('Listening on 0.0.0.0'))
+      .start();
 
-describe('--- ServiceRepositoryMongo ---', () => {
-
-  let service: ServiceRepositoryMongo;
-
-  const costModel = {
-    save: jest.fn().mockResolvedValue(cost),
-    find: jest.fn().mockResolvedValue([cost]),
-    findById: jest.fn().mockResolvedValue(cost),
-    findByIdAndUpdate: jest.fn().mockResolvedValue(cost),
-    findByIdAndDelete: jest.fn().mockResolvedValue(cost),
-  };
-
-  beforeEach(async () => {
+    const setting = { port: container.getMappedPort(mongoPort) };
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ServiceRepositoryMongo,
-        {
-          provide: getModelToken('Cost'),
-          useValue: costModel,
-        },
+      imports: [
+        InfrastructureModule.foorRoot(setting),
+        MongooseModule.forFeature([{ name: 'Cost', schema: CostSchema }]),
       ],
+      providers: [ServiceRepositoryMongo],
     }).compile();
 
-    service = module.get<ServiceRepositoryMongo>(ServiceRepositoryMongo);
+    serviceRepositoryMongo = module.get<ServiceRepositoryMongo>(
+      ServiceRepositoryMongo,
+    );
+
+    done();
   });
 
-  it('should return all the cost', () => {
-    expect(service.getAll()).resolves.toEqual([cost]);
+  afterAll(async done => {
+    container.stop();
+    done();
   });
 
-  it('should return one cost', () => {
-    expect(service.getCost(cost.id)).resolves.toEqual(cost);
+  afterEach(async done => {
+    await container.exec([
+      'mongo',
+      'adn',
+      '--eval',
+      "'db.dropDatabase();'",
+    ]);
+    done();
   });
 
-  it('should update cost', () => {
-    expect(service.updateCost(cost.id, cost)).resolves.toEqual(cost);
-  });
+  describe('-- getAll cost --', () => {
+    it(' -> when get all cost', async done => {
+      const costDto = new CostDto(
+        '',
+        'prueba',
+        4,
+        20000,
+        0,
+        new Date(),
+      );
+      await serviceRepositoryMongo.createCost(costDto);
 
-  it('should create cost', () => {
-    expect(service.createCost(cost)).resolves.toEqual(cost);
-  });
+      const costs = await serviceRepositoryMongo.getAll();
 
-  it('should delete cost', () => {
-    expect(service.deleteCost(cost.id)).resolves.toEqual(cost);
+      expect(costs.length).toBe(1);
+      expect(costs[0].type).toBe('prueba');
+      done();
+    });
   });
 
 });

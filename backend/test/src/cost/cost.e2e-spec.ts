@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../../../src/app.module';
+import AppModule from '../../../src/app.module';
 
 import { GenericContainer, Wait } from 'testcontainers';
 import { timer } from 'rxjs';
 const fs = require('fs');
 
-describe('CostController (e2e)', () => {
+describe('--- CostController (e2e) ---', () => {
   let app: INestApplication;
   let container;
   const portMongo = 27017;
@@ -42,12 +42,12 @@ describe('CostController (e2e)', () => {
     let rawdata = fs.readFileSync(`${__dirname}/example.json`);
 
     const response = await request(app.getHttpServer())
-      .post('/products/')
+      .post('/cost/')
       .send(JSON.parse(rawdata));
 
     expect(response.status).toBe(201);
     expect(response.body.id).not.toBeNull()
-    expect(response.body.price).toBe(1000);
+    expect(response.body.value).toBe(20000);
     done();
   });
 
